@@ -31,9 +31,7 @@ class Settings(BaseSettings):
 
     # endregion
 
-    container_wiring_modules: list = [
-        'app.api.v1.endpoints.task'
-    ]
+    container_wiring_modules: list = []
 
     @property
     def db_url(self) -> str:

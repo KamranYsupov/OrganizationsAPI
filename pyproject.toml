@@ -1,5 +1,5 @@
 [project]
-name = "task-manager-api"
+name = "organizations-api"
 version = "0.1.0"
 description = ""
 authors = [
