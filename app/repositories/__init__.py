@@ -1,12 +1,15 @@
 __all__ = (
-    "Organization",
-    "Phone",
-    "Activity",
-    "Building",
+    'RepositoryOrganization',
+    'RepositoryPhone',
+    'RepositoryActivity',
+    'RepositoryBuilding',
 )
 
-from app.repositories.activity import Activity
-from app.repositories.building import Building
-from app.repositories.organization import Organization, Phone
+from app.repositories.activity import RepositoryActivity
+from app.repositories.building import RepositoryBuilding
+from app.repositories.organization import (
+    RepositoryOrganization,
+    RepositoryPhone,
+)
 
 
