@@ -18,7 +18,7 @@ class Organization(Base, UUIDMixin):
     name: Mapped[str] = mapped_column(String, nullable=False)
     building_id: Mapped[int] = mapped_column(Integer, ForeignKey('buildings.id'))
 
-    buildings= relationship(
+    building = relationship(
         'Building',
         back_populates='organizations'
     )
