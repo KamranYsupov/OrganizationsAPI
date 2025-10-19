@@ -12,21 +12,14 @@ organization_activity = Table(
     Column('organization_id', Integer, ForeignKey('organizations.id')),
     Column('activity_id', Integer, ForeignKey('activities.id'))
 )
-organization_building = Table(
-    'organization_building',
-    Base.metadata,
-    Column('organization_id', Integer, ForeignKey('organizations.id')),
-    Column('building_id', Integer, ForeignKey('buildings.id'))
-)
 
 
 class Organization(Base, UUIDMixin):
     name: Mapped[str] = mapped_column(String, nullable=False)
     building_id: Mapped[int] = mapped_column(Integer, ForeignKey('buildings.id'))
 
-    buildings = relationship(
+    buildings= relationship(
         'Building',
-        secondary=organization_building,
         back_populates='organizations'
     )
     activities = relationship(

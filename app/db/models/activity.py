@@ -20,7 +20,7 @@ class Activity(Base, UUIDMixin):
 
     parent = relationship(
         'Activity',
-        remote_side=[id],
+        remote_side='Activity.id',
         back_populates='children'
     )
     children = relationship(

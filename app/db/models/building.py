@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from app.db.models import Base
 from app.db.models.mixins import UUIDMixin
-from app.db.models.organization import organization_building
 
 
 class Building(Base, UUIDMixin):
@@ -15,6 +14,5 @@ class Building(Base, UUIDMixin):
 
     organizations = relationship(
         'Organization',
-        secondary=organization_building,
-        back_populates='buildings'
+        back_populates='building'
     )

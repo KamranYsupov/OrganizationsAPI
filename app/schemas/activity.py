@@ -1,3 +1,4 @@
+import uuid
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -15,11 +16,12 @@ class ActivityCreateSchema(ActivityBaseSchema):
 
 
 class ActivitySchema(ActivityBaseSchema, UUIDSchemaMixin):
+    id: uuid.UUID
     parent_id: Optional[int]
     children: List['ActivitySchema'] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 

@@ -1,4 +1,5 @@
 from typing import List, Optional
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -18,16 +19,16 @@ class PhoneCreateSchema(PhoneBaseSchema):
 class PhoneSchema(PhoneBaseSchema, UUIDSchemaMixin):
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class OrganizationBaseSchema(BaseModel):
     name: str
-    building_id: int
 
 
 class OrganizationCreateSchema(OrganizationBaseSchema):
-    activity_ids: List[int] = []
+    activity_ids: List[UUID] = []
+    building_id: UUID
     phones: List[str] = []
 
 
@@ -37,14 +38,14 @@ class OrganizationSchema(OrganizationBaseSchema, UUIDSchemaMixin):
     phones: List[PhoneSchema] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class OrganizationShortSchema(BaseModel, UUIDSchemaMixin):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class BuildingWithOrganizationsSchema(BuildingSchema):
