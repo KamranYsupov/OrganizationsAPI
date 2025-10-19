@@ -1,3 +1,4 @@
+import uuid
 from typing import List, Optional
 
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
@@ -12,8 +13,7 @@ class Activity(Base, UUIDMixin):
     __tablename__ = 'activities'
 
     name: Mapped[str] = mapped_column(String, nullable=False)
-    parent_id: Mapped[Optional[int]] = mapped_column(
-        Integer,
+    parent_id: Mapped[Optional[uuid.UUID]] = mapped_column(
         ForeignKey('activities.id'),
         nullable=True
     )

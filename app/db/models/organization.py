@@ -1,3 +1,4 @@
+import uuid
 from typing import List, Optional
 
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
@@ -16,7 +17,7 @@ organization_activity = Table(
 
 class Organization(Base, UUIDMixin):
     name: Mapped[str] = mapped_column(String, nullable=False)
-    building_id: Mapped[int] = mapped_column(Integer, ForeignKey('buildings.id'))
+    building_id: Mapped[uuid.UUID] = mapped_column(ForeignKey('buildings.id'))
 
     building = relationship(
         'Building',
