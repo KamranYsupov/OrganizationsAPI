@@ -32,7 +32,7 @@ class OrganizationCreateSchema(OrganizationBaseSchema):
 
 
 class OrganizationSchema(OrganizationBaseSchema, UUIDSchemaMixin):
-    building: BuildingSchema
+    buildings: List[BuildingSchema]
     activities: List[ActivitySchema] = []
     phones: List[PhoneSchema] = []
 
