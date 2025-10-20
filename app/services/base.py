@@ -10,6 +10,7 @@ from typing import (
 )
 
 from fastapi import HTTPException
+from sqlalchemy.sql.base import ExecutableOption
 from starlette import status
 
 from app.repositories.base import ModelType
@@ -28,8 +29,12 @@ class CRUDBaseService(Generic[RepositoryType, ]):
         self._repository = repository
         self.unique_fields = unique_fields
 
-    async def get(self, **kwargs) -> ModelType:
-        return await self.get_object_or_404(**kwargs)
+    async def get(
+            self,
+            options: List[ExecutableOption] = [],
+            **kwargs
+    ) -> ModelType:
+        return await self.get_object_or_404(options=options, **kwargs)
 
     async def create(self, obj_in) -> ModelType:
         insert_data = await self.validate_object_insertion(obj_in)
@@ -53,12 +58,14 @@ class CRUDBaseService(Generic[RepositoryType, ]):
             *args,
             skip: Optional[int] = None,
             limit: Optional[int] = None,
+            options: List[ExecutableOption] = [],
             **kwargs
     ) -> list[ModelType]:
         return await self._repository.list(
             *args,
             skip=skip,
             limit=limit,
+            options=options,
             **kwargs
         )
 
@@ -98,8 +105,12 @@ class CRUDBaseService(Generic[RepositoryType, ]):
 
         return insert_data
 
-    async def get_object_or_404(self, **kwargs):
-        obj = await self._repository.get(**kwargs)
+    async def get_object_or_404(
+            self,
+            options: List[ExecutableOption] = [],
+            **kwargs
+    ):
+        obj = await self._repository.get(options=options, **kwargs)
 
         if not obj:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)

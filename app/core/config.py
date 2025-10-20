@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     project_name: str = Field(title='Название проекта')
     base_url: str = Field(default='http://127.0.0.1')
     api_v1_prefix: str = Field(title='Префикс первой версии API', default='/api/v1')
+    api_key: str = Field(title='Статический API ключ')
 
     # region БД
     db_user: str = Field(title='Пользователь БД')
@@ -31,7 +32,9 @@ class Settings(BaseSettings):
 
     # endregion
 
-    container_wiring_modules: list = []
+    container_wiring_modules: list = [
+        'app.api.v1.endpoints.organizations',
+    ]
 
     @property
     def db_url(self) -> str:

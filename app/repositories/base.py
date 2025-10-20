@@ -10,6 +10,7 @@ from typing import (
 
 from sqlalchemy import select, update, delete, or_
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.sql.base import ExecutableOption
 
 ModelType = TypeVar("ModelType")
 
@@ -32,12 +33,15 @@ class RepositoryBase(Generic[ModelType,]):
         db_obj = self.model(**insert_data)
 
         self._session.add(db_obj)
-        await self._session.commit()
-        await self._session.refresh(db_obj)
+        await self._session.flush()
 
         return db_obj
 
-    async def get(self, options: List = [], **kwargs) -> Optional[ModelType]:
+    async def get(
+            self,
+            options: List[ExecutableOption] = [],
+            **kwargs
+    ) -> Optional[ModelType]:
         statement = select(self.model).options(*options).filter_by(**kwargs)
         result = await self._session.execute(statement)
         return result.scalars().first()
@@ -54,14 +58,13 @@ class RepositoryBase(Generic[ModelType,]):
             values(**insert_data)
         )
         await self._session.execute(statement)
-        await self._session.commit()
 
         return await self._session.get(self.model, obj_id)
 
     async def list(
             self,
             *args,
-            options: List = [],
+            options: List[ExecutableOption] = [],
             limit: Optional[int] = None,
             skip: Optional[int] = None,
             **kwargs

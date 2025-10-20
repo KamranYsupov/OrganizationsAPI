@@ -16,11 +16,16 @@ class ActivityCreateSchema(ActivityBaseSchema):
 
 class ActivitySchema(ActivityBaseSchema, UUIDSchemaMixin):
     parent_id: Optional[uuid.UUID]
-    children: List['ActivitySchema'] = []
 
     class Config:
         from_attributes = True
 
+class ActivityChildrenSchema(ActivityBaseSchema, UUIDSchemaMixin):
+    parent_id: Optional[uuid.UUID]
+    children: List['ActivityChildrenSchema'] = []
+
+    class Config:
+        from_attributes = True
 
 
 

@@ -34,16 +34,15 @@ class OrganizationCreateSchema(OrganizationBaseSchema):
 
 
 class OrganizationSchema(OrganizationBaseSchema, UUIDSchemaMixin):
-    building_id: UUID
+    building: BuildingSchema
     activities: List[ActivitySchema] = []
-    phones: List[PhoneSchema] = []
+    phones: List[str] = []
 
     class Config:
         from_attributes = True
 
 
-class OrganizationShortSchema(BaseModel, UUIDSchemaMixin):
-    name: str
+class OrganizationShortSchema(OrganizationBaseSchema, UUIDSchemaMixin):
 
     class Config:
         from_attributes = True
