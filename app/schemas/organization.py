@@ -10,6 +10,7 @@ from app.schemas.mixins import UUIDSchemaMixin
 
 class PhoneBaseSchema(BaseModel):
     number: str
+    organization_id: UUID
 
 
 class PhoneCreateSchema(PhoneBaseSchema):
@@ -33,7 +34,7 @@ class OrganizationCreateSchema(OrganizationBaseSchema):
 
 
 class OrganizationSchema(OrganizationBaseSchema, UUIDSchemaMixin):
-    buildings: List[BuildingSchema]
+    building_id: UUID
     activities: List[ActivitySchema] = []
     phones: List[PhoneSchema] = []
 

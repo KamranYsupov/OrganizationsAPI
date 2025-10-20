@@ -1,5 +1,4 @@
 import uuid
-from uuid import UUID
 
 from pydantic import BaseModel
 from typing import List, Optional
@@ -12,12 +11,11 @@ class ActivityBaseSchema(BaseModel):
 
 
 class ActivityCreateSchema(ActivityBaseSchema):
-    parent_id: Optional[UUID] = None
+    parent_id: Optional[uuid.UUID] = None
 
 
 class ActivitySchema(ActivityBaseSchema, UUIDSchemaMixin):
-    id: uuid.UUID
-    parent_id: Optional[int]
+    parent_id: Optional[uuid.UUID]
     children: List['ActivitySchema'] = []
 
     class Config:
