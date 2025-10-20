@@ -136,7 +136,7 @@ async def search_organizations_in_radius(
             Provide[Container.geo_service]
         ),
         api_key=Depends(verify_api_key),
-) -> List[OrganizationSchema]:
+) -> List[OrganizationShortSchema]:
     """
     Поиск организаций в радиусе от точки на карте
     """
@@ -168,7 +168,7 @@ async def search_organizations_in_rectangle(
             Provide[Container.geo_service]
         ),
         api_key=Depends(verify_api_key),
-) -> List[OrganizationSchema]:
+) -> List[OrganizationShortSchema]:
     """
     Поиск организаций в прямоугольной области на карте
     """
